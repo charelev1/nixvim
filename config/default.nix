@@ -2,11 +2,10 @@
   imports = [
     ./bufferline.nix
     ./cmp.nix
-    ./harpoon.nix
+    ./utils/harpoon.nix
     # ./copilot-chat.nix
     # ./git.nix
     ./lightline.nix
-    ./lsp/default.nix
     ./lsp/fidget.nix
     ./lsp/ionide.nix
     ./lsp/none-ls.nix
@@ -17,8 +16,10 @@
     ./utils/auto-pairs.nix
     # ./utils/autosave.nix
     # ./utils/blankline.nix
-    # ./utils/lazygit.nix
+    ./utils/lazygit.nix
     ./utils/telescope.nix
+    ./utils/comment-box.nix
+    ./utils/markview.nix
     # ./utils/toggleterm.nix
     # ./utils/which-key.nix
     # ./utils/wilder.nix
@@ -63,6 +64,19 @@
     vim.cmd([[nnoremap = :vertical resize -5<CR>]])
     vim.cmd([[vnoremap <C-f> y/<C-R>0<CR>]])
 
+    -- Harpoon
+    local mark = require("harpoon.mark")
+    local ui = require("harpoon.ui")
+    
+    vim.keymap.set("n", "<leader>a", mark.add_file)
+    vim.keymap.set("n", "<leader>e", ui.toggle_quick_menu)
+    vim.keymap.set("n", "<leader>1", function() ui.nav_file(1) end)
+    vim.keymap.set("n", "<leader>2", function() ui.nav_file(2) end)
+    vim.keymap.set("n", "<leader>3", function() ui.nav_file(3) end)
+    vim.keymap.set("n", "<leader>4", function() ui.nav_file(4) end)
+    vim.keymap.set("n", "<leader>5", function() ui.nav_file(5) end)
+    vim.keymap.set("n", "<leader>6", function() ui.nav_file(6) end)
+    vim.keymap.set("n", "<leader>7", function() ui.nav_file(7) end)
   '';
 
 
@@ -214,9 +228,9 @@
     {
       mode = "n";
       key = "<leader>lg";
-      action = "<cmd>lazygit<CR>";
+      action = "<cmd>LazyGit<CR>";
       options = {
-        desc = "lazygit";
+        desc = "LazyGit";
       };
     }
 
