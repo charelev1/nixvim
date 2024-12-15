@@ -13,6 +13,20 @@ Because who doesn't like a declarative configuration of Neovim?
 ![Screenshot of configuration](/images/trouble.png)
 </details>
 
+## Prerequisites
+
+Add the following variables to ~/.bashrc
+```
+export NP_RUNTIME="bwrap"
+export NP_GIT=$(which git)
+```
+
+Download the Nix nix-portable
+```
+curl -L https://github.com/DavHau/nix-portable/releases/latest/download/nix-portable-$(uname -m) > ./nix-portable
+chmod +x ./nix-portable
+```
+
 ## How to run
 
 To run the configuration, you can type the following:
