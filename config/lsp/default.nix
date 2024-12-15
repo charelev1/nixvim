@@ -10,7 +10,6 @@
         elixirls.enable = true;
         gleam.enable = true;
         gopls.enable = true;
-        kotlin_language_server.enable = true;
         nixd.enable = true;
         pyright.enable = true;
         verible.enable = true;
