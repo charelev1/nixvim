@@ -43,13 +43,30 @@
       vim.fn.setreg("+", real_path)
       print("Copied buffer path to clipboard: " .. real_path)
     end
-  
+
+    -- Function to copy the buffer's path to clipboard
+   function copy_buffer_folder_to_clipboard()
+     local path = vim.api.nvim_buf_get_name(0)  -- Get the buffer's file path
+     local real_path = vim.loop.fs_realpath(path) or path  -- Get the absolute path
+     local folder_path = real_path:match("(.*/)")  -- Extract the folder path (up to the last '/')
+     vim.fn.setreg("+", folder_path)  -- Copy folder path to clipboard
+     print("Copied buffer folder path to clipboard: " .. folder_path)
+   end
+
     -- Keymap for copying buffer path to clipboard
     vim.api.nvim_set_keymap(
       "n",
       "<leader>c",
       ":lua copy_buffer_path_to_clipboard()<CR>",
       { noremap = true, silent = true, desc = "Copy buffer path to clipboard" }
+    )
+
+    -- Keymap for copying buffer folder path to clipboard
+    vim.api.nvim_set_keymap(
+      "n",
+      "<leader>d",
+      ":lua copy_buffer_folder_to_clipboard()<CR>",
+      { noremap = true, silent = true, desc = "Copy buffer folder path to clipboard" }
     )
 
     vim.cmd([[set foldmethod=indent]])
