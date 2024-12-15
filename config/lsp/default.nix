@@ -12,6 +12,8 @@
         gopls.enable = true;
         kotlin_language_server.enable = true;
         nixd.enable = true;
+        pyright.enable = true;
+        verible.enable = true;
         prolog_ls = {
           enable = true;
           package = pkgs.swi-prolog;

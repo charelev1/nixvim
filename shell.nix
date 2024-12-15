@@ -20,8 +20,8 @@ pkgs.mkShell {
     # Go
     go
 
-    # Kotlin
-    kotlin-native
+    # # Kotlin
+    # kotlin-native
 
     # Tools
     ripgrep
