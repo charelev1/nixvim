@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 HERE=$(dirname "$(readlink -f "$0")")
 export NP_LOCATION="$HERE/.nix-store"
+export NP_RUNTIME="bwrap"
+export NP_GIT=$(which git)
+
 "$HERE/nix-portable" nix "$@"
