@@ -63,14 +63,27 @@
                 };
             };
 
+
+            neoscroll = {
+                enable = true;
+                settings = {
+                    # Stop animation if the user interrupts with a keypress
+                    stop_eof = true;
+                    hide_cursor = false; # Keep the cursor visible
+                    easing_function = "quadratic"; # Smooth start and end
+                    cursor_scroll_step = 2; # How many lines the cursor moves
+                };
+            };
+
+
             visual-multi = {
                 enable = true;
             };
 
             # Harpoon: Quick file switching
             harpoon = {
-              enable = true;
-              enableTelescope = true; # Integrates with your telescope plugin
+                enable = true;
+                enableTelescope = true; # Integrates with your telescope plugin
             };
 
 
