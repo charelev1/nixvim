@@ -1,22 +1,5 @@
 #!/usr/bin/env bash
 HERE=$(dirname "$(readlink -f "$0")")
-
-# 1. Environment Setup
 export NP_LOCATION="$HERE/.nix-store"
+"$HERE/nix-portable" nix run "$HERE#" -- "$@"
 
-# 2. Fix PATH so internal LSPs can find 'nix'
-mkdir -p "$HERE/.bin"
-ln -sf "$HERE/nix-portable" "$HERE/.bin/nix" 2>/dev/null
-export PATH="$HERE/.bin:$PATH"
-
-# 3. Smart Build
-# We check if 'result' exists or if flake.nix is newer
-if [ ! -L "$HERE/result" ] || [ "$HERE/flake.nix" -nt "$HERE/result" ]; then
-    echo "🔨 Config change detected. Rebuilding..."
-    "$HERE/nix-portable" nix build "$HERE#" --out-link "$HERE/result"
-fi
-
-# 4. Launch Logic
-# Instead of passing the path directly, we use the 'nix shell' 
-# environment to ensure all libraries and paths are mapped correctly.
-"$HERE/nix-portable" nix shell "$HERE#" -c nvim "$@"
