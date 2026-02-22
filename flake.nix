@@ -149,6 +149,13 @@
 
                     clangd.enable = true;   # C/C++ <--- Add this line
                 };
+
+                # Enable Inlay Hints globally when an LSP attaches to a buffer
+                onAttach = ''
+                      if client.server_capabilities.inlayHintProvider then
+                        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+                      end
+                    '';
             };
 
             nui.enable = true;
@@ -343,6 +350,12 @@
                 key = "<C-t>";
                 action = "<C-o>"; 
                 options.desc = "Jump Back";
+            }
+            {
+                mode = "n";
+                key = "<leader>th"; # 't'oggle 'h'ints
+                action = ''<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>'';
+                options.desc = "Toggle Inlay Hints";
             }
         ];
 
