@@ -1,2 +1,5 @@
 nix-portable
 .nix-store
+nv_old
+result
+.bin
