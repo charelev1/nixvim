@@ -27,7 +27,7 @@ chmod +x ./nix-portable
 # 4. Set the environment variables
 ```bash
 export NP_LOCATION=$PWD
-export NP_RUNTIME=$PWD
+export NP_RUNTIME=bwrap
 export NP_GIT=$(which git)
 
 ```
