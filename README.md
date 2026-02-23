@@ -16,3 +16,9 @@ chmod +x nix-portable
 # 2. Clone this setup
 
 ```bash
+```
+
+# 3. Cleanup
+```bash
+./nix-portable nix-store --gc
+```
