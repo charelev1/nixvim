@@ -1,27 +1,26 @@
 {
-  description = "A fully contained Nixvim configuration";
+    description = "A fully contained Nixvim configuration";
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixvim.url = "github:nix-community/nixvim";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
-  };
+    inputs = {
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+        nixvim.url = "github:nix-community/nixvim";
+        nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-  outputs = { self, nixpkgs, nixvim, ... }:
+    outputs = { self, nixpkgs, nixvim, ... }:
     let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
       
-      nixvimConfiguration = {
-        # Appearance
+    nixvimConfiguration = {
         colorschemes.gruvbox.enable = true;
 
         opts = {
             cursorline = true;
             clipboard = "unnamedplus"; # Use system clipboard for all yanks/pastes
             backup = false;         # Disable backup files
-            writebackup = false;    # Disable backup before overwriting
             swapfile = false;       # Disable swap files
+            writebackup = false;    # Disable backup before overwriting
             undofile = false;       # Disable persistent undo
             wrap = false;               # Disable text wrapping
             foldmethod = "indent";      # Fold based on indentation levels
@@ -359,10 +358,20 @@
             }
         ];
 
-      };
+        autoCmd = [
+            {
+                command = "lua vim.treesitter.start(0,'python')";
+                event = [
+                    "BufEnter"
+                    "BufWinEnter"
+                ];
+                pattern = ["*.py"];
+            }
+        ];
+    };
 
-      # Build the Neovim package
-      nvim = nixvim.legacyPackages.${system}.makeNixvim nixvimConfiguration;
+    # Build the Neovim package
+    nvim = nixvim.legacyPackages.${system}.makeNixvim nixvimConfiguration;
     in {
       packages.${system}.default = nvim;
     };
