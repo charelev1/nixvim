@@ -8,9 +8,11 @@ features like LSP, Treesitter, and Autocompletion.
 Run these commands in order to set up your environment:
 
 ```bash
+
 mkdir -p ~/.config/nixvim && cd ~/.config/nixvim
-curl -L [https://github.com/DavHau/nix-portable/releases/latest/download/nix-portable-$(uname](https://github.com/DavHau/nix-portable/releases/latest/download/nix-portable-$(uname) -m) > nix-portable
-chmod +x nix-portable
+
+curl -L https://github.com/DavHau/nix-portable/releases/latest/download/nix-portable-$(uname -m) > ./nix-portable
+chmod +x ./nix-portable
 ```
 
 # 2. Clone this setup
