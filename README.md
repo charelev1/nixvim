@@ -1,61 +1,28 @@
-#  Portable Nixvim Configuration
+# Nixvim Configuration by charelev1
 
-It uses **Nix-Portable** to keep your system clean while providing modern IDE
-features like LSP, Treesitter, and Autocompletion.
 
-# Dependencies
-- bwrap
-- git
-
-# 1. Download the Nix-Portable engine
-
-Run these commands in order to set up your environment:
-
+## 1. Single-user installation
 ```bash
-
-mkdir -p ~/tmp/nixvim && cd ~/tmp/nixvim # temporary build directory
-curl -L https://github.com/DavHau/nix-portable/releases/latest/download/nix-portable-$(uname -m) > ./nix-portable
-chmod +x ./nix-portable
+sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --no-daemon
 ```
 
-# 2. Clone this setup
+
+# 2. Enable flakes
 
 ```bash
-    git clone git@github.com:charelev1/nixvim.git
+    mkdir -p ~/.config/nix
+    echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```
 
-# 4. Set the environment variables
-```bash
-export NP_LOCATION=$PWD
-export NP_RUNTIME=bwrap
-export NP_GIT=$(which git)
+# 3. Build with flakes
 
-```
-
-# 4. Start nix shell
 ```bash
-  nix-portable nix-shell -p bash
+    mkdir -p ~/.config/nixvim && cd ~/.config/nixvim
+    nix build github:charelev1/nixvim
 ```
 
-# 5. Build the flake 
+# 4. Start nvim 
 ```bash
-  nix build # (In nix shell)
+    ./result/bin/nvim
 ```
 
-# 6. Bundle the build in an AppImage
-```bash
-nix bundle  --bundler github:ralismark/nix-appimage   .#default  -o nixvim.AppImage  # (In nix shell)
-```
-# 7. Copy the AppImage symlink to your preferred location
-```bash
-cp -L nixvim.AppImage ~/.config/nixvim/builds
-exit # Exit the  nix shell
-```
-
-# 7. Unpack the AppImage and run
-```bash
-cd ~/.config/nixvim/builds
-chmod +x nixvim.AppImage
-nixvim.AppImage --appimage-extract
-./squashfs-root/AppRun 
-```
